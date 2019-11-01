@@ -20,13 +20,13 @@ export class RoutesImpl implements Routes {
         @named(RequestType.Default)
         controllerDefault: Controller,
         @inject(Types.Controller)
-        @named(RequestType.Default)
+        @named(RequestType.Create)
         controllerCreate: Controller,
         @inject(Types.Controller)
-        @named(RequestType.Default)
+        @named(RequestType.Save)
         controllerSave: Controller,
         @inject(Types.Controller)
-        @named(RequestType.Default)
+        @named(RequestType.Edit)
         controllerEdit: Controller,
     ) {
         this.controllerDefault = controllerDefault;
@@ -48,7 +48,7 @@ export class RoutesImpl implements Routes {
             this.controllerSave.control(req, res),
         );
 
-        app.get('/edit', (req: Request, res: Response) =>
+        app.get('/edit/:id', (req: Request, res: Response) =>
             this.controllerEdit.control(req, res),
         );
     }

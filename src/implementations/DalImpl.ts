@@ -3,25 +3,21 @@ import * as Nedb from 'nedb';
 import { Dal } from '../interfaces/Dal';
 import { Note } from '../constants/models/Note';
 
+const database: Nedb = new Nedb({
+    filename: './store.db',
+    autoload: true,
+});
+
 type Reject = (reason?: {}) => void;
 
 type Resolve<T> = (value?: T | PromiseLike<T>) => void;
 
 @injectable()
 export class DalImpl implements Dal {
-    private readonly database: Nedb;
-
-    constructor() {
-        this.database = new Nedb({
-            filename: 'store.db',
-            autoload: true,
-        });
-    }
-
     public getNoteById(id: string): Promise<Note> {
         return new Promise<Note>(
             (resolve: Resolve<Note>, reject: Reject): void => {
-                this.database.findOne({ _id: id }, (err: Error, note: Note) => {
+                database.findOne({ _id: id }, (err: Error, note: Note) => {
                     if (err) {
                         reject(err);
                     }
@@ -35,7 +31,7 @@ export class DalImpl implements Dal {
     public getNotes(query: unknown = {}): Promise<Note[]> {
         return new Promise<Note[]>(
             (resolve: Resolve<Note[]>, reject: Reject): void => {
-                this.database.find(query, (err: Error, note: Note[]) => {
+                database.find(query, (err: Error, note: Note[]) => {
                     if (err) {
                         reject(err);
                     }
@@ -49,7 +45,7 @@ export class DalImpl implements Dal {
     private createNote(note: Note): Promise<void> {
         return new Promise<void>(
             (resolve: Resolve<void>, reject: Reject): void => {
-                this.database.insert(note, (err: Error, returnedNote: Note) => {
+                database.insert(note, (err: Error, returnedNote: Note) => {
                     if (err || !returnedNote) {
                         reject(err);
                     }
@@ -63,7 +59,7 @@ export class DalImpl implements Dal {
     private updateNote(note: Note): Promise<void> {
         return new Promise<void>(
             (resolve: Resolve<void>, reject: Reject): void => {
-                this.database.update(
+                database.update(
                     // eslint-disable-next-line no-underscore-dangle
                     { _id: note._id },
                     {

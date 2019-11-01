@@ -13,6 +13,15 @@ import { Types } from './types/Types';
 import { container } from './inversify.config';
 import { Routes } from './interfaces/Routes';
 
+BluebirdPromise.config({
+    warnings: true,
+    longStackTraces: true,
+    cancellation: false,
+    monitoring: false,
+});
+
+global.Promise = BluebirdPromise;
+
 const app = express();
 
 app.use(morgan('combined'));
@@ -34,19 +43,6 @@ app.use(express.static(viewsDir));
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
-
-BluebirdPromise.config({
-    // Enable warnings
-    warnings: true,
-    // Enable long stack traces
-    longStackTraces: true,
-    // Enable cancellation
-    cancellation: false,
-    // Enable monitoring
-    monitoring: false,
-});
-
-global.Promise = BluebirdPromise;
 
 http.createServer(app).listen(port, () => {
     console.log(

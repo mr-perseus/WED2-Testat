@@ -21,7 +21,7 @@ export class ControllerEdit implements Controller {
         try {
             const style: string = req.session ? req.session.style : '';
 
-            const note: Note = await this.dal.getNoteById(req.query.noteId);
+            const note: Note = await this.dal.getNoteById(req.params.id);
 
             res.render('editNote.hbs', {
                 title: 'Edit note',
