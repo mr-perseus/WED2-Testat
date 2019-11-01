@@ -31,4 +31,70 @@ export class DalImpl implements Dal {
             },
         );
     }
+
+    public getNotes(query: unknown = {}): Promise<Note[]> {
+        return new Promise<Note[]>(
+            (resolve: Resolve<Note[]>, reject: Reject): void => {
+                this.database.find(query, (err: Error, note: Note[]) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(note);
+                });
+            },
+        );
+    }
+
+    private createNote(note: Note): Promise<void> {
+        return new Promise<void>(
+            (resolve: Resolve<void>, reject: Reject): void => {
+                this.database.insert(note, (err: Error, returnedNote: Note) => {
+                    if (err || !returnedNote) {
+                        reject(err);
+                    }
+
+                    resolve();
+                });
+            },
+        );
+    }
+
+    private updateNote(note: Note): Promise<void> {
+        return new Promise<void>(
+            (resolve: Resolve<void>, reject: Reject): void => {
+                this.database.update(
+                    // eslint-disable-next-line no-underscore-dangle
+                    { _id: note._id },
+                    {
+                        $set: {
+                            title: note.title,
+                            description: note.description,
+                            priority: note.importance,
+                            dueDate: note.dueDate,
+                            isFinished: note.finished,
+                            modifiedDate: new Date(),
+                        },
+                    },
+                    {},
+                    (err: Error, numberOfUpdated: number, upsert: boolean) => {
+                        if (err || numberOfUpdated !== 1 || upsert) {
+                            reject(err);
+                        }
+
+                        resolve();
+                    },
+                );
+            },
+        );
+    }
+
+    public async createOrUpdateNote(note: Note): Promise<void> {
+        // eslint-disable-next-line no-underscore-dangle
+        if (!note._id) {
+            await this.createNote(note);
+        } else {
+            await this.updateNote(note);
+        }
+    }
 }

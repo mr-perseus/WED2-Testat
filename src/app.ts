@@ -8,6 +8,7 @@ import * as os from 'os';
 import * as hbs from 'express-hbs';
 import * as path from 'path';
 import * as BluebirdPromise from 'bluebird';
+import * as session from 'express-session';
 import { Types } from './types/Types';
 import { container } from './inversify.config';
 import { Routes } from './interfaces/Routes';
@@ -19,6 +20,13 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'default_secret',
+        saveUninitialized: true,
+        resave: true,
+    }),
+);
 
 const viewsDir: string = path.join(__dirname, '../views');
 app.engine('hbs', hbs.express4({ partialsDir: viewsDir }));

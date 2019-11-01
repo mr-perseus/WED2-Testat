@@ -9,17 +9,47 @@ import { RequestType } from '../constants/enums/RequestType';
 export class RoutesImpl implements Routes {
     private readonly controllerDefault: Controller;
 
+    private readonly controllerCreate: Controller;
+
+    private readonly controllerSave: Controller;
+
+    private readonly controllerEdit: Controller;
+
     public constructor(
         @inject(Types.Controller)
         @named(RequestType.Default)
         controllerDefault: Controller,
+        @inject(Types.Controller)
+        @named(RequestType.Default)
+        controllerCreate: Controller,
+        @inject(Types.Controller)
+        @named(RequestType.Default)
+        controllerSave: Controller,
+        @inject(Types.Controller)
+        @named(RequestType.Default)
+        controllerEdit: Controller,
     ) {
         this.controllerDefault = controllerDefault;
+        this.controllerCreate = controllerCreate;
+        this.controllerSave = controllerSave;
+        this.controllerEdit = controllerEdit;
     }
 
     public init(app: Express): void {
         app.get('/', (req: Request, res: Response) =>
             this.controllerDefault.control(req, res),
+        );
+
+        app.get('/create', (req: Request, res: Response) =>
+            this.controllerCreate.control(req, res),
+        );
+
+        app.get('/save', (req: Request, res: Response) =>
+            this.controllerSave.control(req, res),
+        );
+
+        app.get('/edit', (req: Request, res: Response) =>
+            this.controllerEdit.control(req, res),
         );
     }
 }
