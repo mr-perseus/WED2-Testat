@@ -12,7 +12,7 @@ export class ControllerCreate implements Controller {
                 style: req.session ? req.session.style : null,
             };
 
-            res.render('updateNoteDetail.hbs', viewData);
+            res.render('editNote.hbs', viewData);
         } catch (error) {
             res.status(INTERNAL_SERVER_ERROR);
             res.render('error.hbs', {

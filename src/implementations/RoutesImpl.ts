@@ -44,7 +44,7 @@ export class RoutesImpl implements Routes {
             this.controllerCreate.control(req, res),
         );
 
-        app.get('/save', (req: Request, res: Response) =>
+        app.post('/save', (req: Request, res: Response) =>
             this.controllerSave.control(req, res),
         );
 

@@ -4,6 +4,7 @@ import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import { Controller } from '../../interfaces/Controller';
 import { Types } from '../../types/Types';
 import { Dal } from '../../interfaces/Dal';
+import { Note } from '../../constants/models/Note';
 
 @injectable()
 export class ControllerSave implements Controller {
@@ -18,7 +19,7 @@ export class ControllerSave implements Controller {
 
     public async control(req: Request, res: Response): Promise<void> {
         try {
-            await this.dal.createOrUpdateNote(req.body);
+            await this.dal.createOrUpdateNote(new Note(req.body));
 
             res.redirect('/');
         } catch (error) {
