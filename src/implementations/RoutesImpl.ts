@@ -18,7 +18,7 @@ export class RoutesImpl implements Routes {
     }
 
     public init(app: Express): void {
-        app.post('/', (req: Request, res: Response) =>
+        app.get('/', (req: Request, res: Response) =>
             this.controllerDefault.control(req, res),
         );
     }

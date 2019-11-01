@@ -7,10 +7,14 @@ import { Controller } from '../interfaces/Controller';
 export class ControllerDefault implements Controller {
     public async control(_req: Request, res: Response): Promise<void> {
         try {
-            res.send('success');
+            res.render('notes.hbs', {
+                note: 'asd',
+            });
         } catch (error) {
-            res.send(INTERNAL_SERVER_ERROR);
-            res.send('Error');
+            res.status(INTERNAL_SERVER_ERROR);
+            res.render('error.hbs', {
+                message: error.message,
+            });
         }
     }
 }
