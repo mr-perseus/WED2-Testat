@@ -1,2 +1,7 @@
 @media screen and (min-width: 40em) {
 }
+
+.dark {
+    color: white;
+    background-color: #000000c7;
+}

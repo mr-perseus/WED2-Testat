@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import boolean from 'boolean';
 import { Controller } from '../../interfaces/Controller';
 import { Types } from '../../types/Types';
 import { Dal } from '../../interfaces/Dal';
@@ -19,14 +20,16 @@ export class ControllerEdit implements Controller {
 
     public async control(req: Request, res: Response): Promise<void> {
         try {
-            const style: string = req.session ? req.session.style : '';
+            const isDarkTheme: boolean = req.session
+                ? boolean(req.session.isDarkTheme)
+                : false;
 
             const note: Note = await this.dal.getNoteById(req.params.id);
 
             res.render('editNote.hbs', {
                 title: 'Edit note',
                 note,
-                style,
+                isDarkTheme,
             });
         } catch (error) {
             res.status(INTERNAL_SERVER_ERROR);

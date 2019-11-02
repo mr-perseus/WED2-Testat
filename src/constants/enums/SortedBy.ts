@@ -1,5 +1,5 @@
 export enum SortedBy {
-    dueDate = "dueDate",
-    createdDate = "createdDate",
-    importance = "importance",
+    dueDate = 'dueDate',
+    createdDate = 'createdDate',
+    importance = 'importance',
 }

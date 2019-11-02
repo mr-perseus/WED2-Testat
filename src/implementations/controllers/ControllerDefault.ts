@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import boolean from 'boolean';
 import { Controller } from '../../interfaces/Controller';
 import { Types } from '../../types/Types';
 import { Dal } from '../../interfaces/Dal';
@@ -68,7 +69,7 @@ export class ControllerDefault implements Controller {
             session.sortedBy = SortedBy.dueDate;
             session.showFinished = true;
             session.isAscending = true;
-            session.isDarkTheme = true;
+            session.isDarkTheme = false;
             session.visited = true;
         }
 
@@ -76,16 +77,16 @@ export class ControllerDefault implements Controller {
             session.sortedBy = req.query.sort;
         }
 
-        if (req.query.switchAscDesc) {
-            session.isAscending = !session.isAscending;
+        if (req.query.switchToDescending) {
+            session.isAscending = !boolean(req.query.switchToDescending);
         }
 
-        if (req.query.switchStyle) {
-            session.isDarkTheme = !session.isDarkTheme;
+        if (req.query.switchToLightTheme) {
+            session.isDarkTheme = !boolean(req.query.switchToLightTheme);
         }
 
-        if (req.query.switchShowFinished) {
-            session.showFinished = !session.showFinished;
+        if (req.query.switchToHideFinished) {
+            session.showFinished = !boolean(req.query.switchToHideFinished);
         }
 
         return {

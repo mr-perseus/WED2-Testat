@@ -15,17 +15,17 @@
                 <button type="submit" name="sort" value="importance">
                     By Importance
                 </button>
-                <button type="submit" name="switchAscDesc" value="true">
+                <button type="submit" name="switchToDescending" value="{{isAscending}}">
                     {{#if isAscending}}Descending{{else}}Ascending{{/if}}
                 </button>
             </div>
         </div>
         <div>
-            <button type="submit" name="switchShowFinished"
-                    value="true">{{#if showFinished}}Hide{{else}}Show{{/if}} finished notes
+            <button type="submit" name="switchToHideFinished"
+                    value="{{showFinished}}">{{#if showFinished}}Hide{{else}}Show{{/if}} finished notes
             </button>
 
-            <button type="submit" name="switchStyle" value="true">Switch style</button>
+            <button type="submit" name="switchToLightTheme" value="{{isDarkTheme}}">Switch style</button>
         </div>
 
     </form>
