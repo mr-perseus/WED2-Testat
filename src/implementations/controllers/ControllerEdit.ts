@@ -25,8 +25,8 @@ export class ControllerEdit implements Controller {
 
             res.render('editNote.hbs', {
                 title: 'Edit note',
-                note: note,
-                style: style,
+                note,
+                style,
             });
         } catch (error) {
             res.status(INTERNAL_SERVER_ERROR);

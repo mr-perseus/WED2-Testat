@@ -21,6 +21,8 @@ export class Note {
 
     dueDate: Date;
 
+    createdDate: Date;
+
     finished: boolean;
 
     constructor(note: NoteJson) {
@@ -33,6 +35,7 @@ export class Note {
         this.importance = Number(note.importance);
         const date = moment(note.dueDate);
         this.dueDate = new Date(date.year(), date.month(), date.date());
+        this.createdDate = new Date();
         this.finished = boolean(note.finished);
     }
 
@@ -47,7 +50,7 @@ export class Note {
             importanceNumber < 1 ||
             importanceNumber > 5
         ) {
-            throw new Error('Importance is not between 1 and 5.');
+            throw new Error('importance is not between 1 and 5.');
         }
 
         if (!moment(note.dueDate).isValid()) {

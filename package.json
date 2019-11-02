@@ -36,6 +36,7 @@
     "express": "4.17.1",
     "express-hbs": "2.2.0",
     "express-session": "^1.17.0",
+    "handlebars": "4.4.5",
     "http-status-codes": "1.4.0",
     "inversify": "5.0.1",
     "morgan": "1.9.1",

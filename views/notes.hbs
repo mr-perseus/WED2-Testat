@@ -1,0 +1,64 @@
+{{!< layout}}
+
+<section>
+    <form method="get" action="/">
+        <div>
+            <div>
+                <button type="submit" name="sort" value="dueDate">
+                    By Due Date {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                </button>
+
+                <button type="submit" name="sort" value="createdDate">
+                    By Creation Date {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                </button>
+
+                <button type="submit" name="sort" value="importance">
+                    By Importance {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                </button>
+            </div>
+        </div>
+        <div>
+            <button type="submit" name="switchShowFinished"
+                    value="true">{{#if showFinished}}Hide{{else}}Show{{/if}} finished notes
+            </button>
+
+            <button type="submit" name="switchStyle" value="true">Switch style</button>
+        </div>
+
+    </form>
+    <a href="/create"> Create new Note</a>
+</section>
+<section>
+    <header>
+        <h2>Your Notes (Sorted by: {{sortedBy}}, {{#if isAscending}}Ascending{{else}}Descending{{/if}})</h2>
+    </header>
+    {{#if notes.length}}
+        {{#each notes}}
+            <form method="get" action="/edit/{{_id}}">
+
+                <h3>Title: {{title}}</h3>
+
+                <p>Description: {{description}}</p>
+
+                <p>Priority:
+                    {{#times importance}}
+                        *
+                    {{/times}}
+                </p>
+
+                <time datetime="{{formatDate dueDate}}">
+                    Due Date: {{formatDate dueDate}}</time>
+
+                <div>
+                    <label><input type="checkbox" name="finished" value="finished"
+                                  {{#if finished}}checked{{/if}} disabled>Finished</label>
+
+                    <button type="submit">Edit Note</button>
+                </div>
+            </form>
+        {{/each}}
+    {{else}}
+        <p> No notes found</p>
+    {{/if}}
+
+</section>

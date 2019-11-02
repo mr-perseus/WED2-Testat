@@ -9,6 +9,7 @@ import * as hbs from 'express-hbs';
 import * as path from 'path';
 import * as BluebirdPromise from 'bluebird';
 import * as session from 'express-session';
+import * as moment from 'moment';
 import { Types } from './types/Types';
 import { container } from './inversify.config';
 import { Routes } from './interfaces/Routes';
@@ -40,6 +41,16 @@ app.use(
 const viewsDir: string = path.join(__dirname, '../views');
 app.engine('hbs', hbs.express4({ partialsDir: viewsDir }));
 app.use(express.static(viewsDir));
+
+hbs.registerHelper('times', (n, block) => {
+    let accum = '';
+    for (let i = 0; i < n; i += 1) accum += block.fn(i);
+    return accum;
+});
+
+hbs.registerHelper('formatDate', (date) => {
+    return moment(date).format('MMM Do YY');
+});
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
