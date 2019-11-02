@@ -49,7 +49,7 @@ hbs.registerHelper('times', (n, block) => {
 });
 
 hbs.registerHelper('formatDate', (date) => {
-    return moment(date).format('MMM Do YY');
+    return moment(date).format('YYYY-MM-DD');
 });
 
 const port = process.env.PORT || '3000';

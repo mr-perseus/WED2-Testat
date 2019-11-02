@@ -74,6 +74,9 @@ export class ControllerDefault implements Controller {
 
         if (req.query.sort) {
             session.sortedBy = req.query.sort;
+        }
+
+        if (req.query.switchAscDesc) {
             session.isAscending = !session.isAscending;
         }
 

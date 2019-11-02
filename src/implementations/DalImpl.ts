@@ -66,9 +66,9 @@ export class DalImpl implements Dal {
                         $set: {
                             title: note.title,
                             description: note.description,
-                            priority: note.importance,
+                            importance: note.importance,
                             dueDate: note.dueDate,
-                            isFinished: note.finished,
+                            finished: note.finished,
                             modifiedDate: new Date(),
                         },
                     },

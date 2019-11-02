@@ -23,6 +23,8 @@ export class Note {
 
     createdDate: Date;
 
+    modifiedDate: Date;
+
     finished: boolean;
 
     constructor(note: NoteJson) {
@@ -36,6 +38,7 @@ export class Note {
         const date = moment(note.dueDate);
         this.dueDate = new Date(date.year(), date.month(), date.date());
         this.createdDate = new Date();
+        this.modifiedDate = new Date();
         this.finished = boolean(note.finished);
     }
 

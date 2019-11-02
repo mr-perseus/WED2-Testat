@@ -1,0 +1,41 @@
+{{!< layout}}
+
+<div>
+    <form method="post" action="/save">
+
+        <input type="hidden" name="_id" value="{{note._id}}"/>
+
+        <div>
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" required value="{{note.title}}"/>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" name="description">{{note.description}}</textarea>
+        </div>
+
+        <div>
+            <label for="importance">importance</label>
+            <input id="importance" name="importance" type="number" min="1" max="5" required
+                   value="{{note.importance}}"/>
+        </div>
+
+        <div>
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" name="dueDate" type="date" required placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"
+                   value="{{formatDate note.dueDate}}"/>
+        </div>
+
+        <div>
+            <label>
+                <input id="finished" name="finished" type="checkbox" {{#if note.finished}}checked{{/if}}>Finished
+            </label>
+        </div>
+
+        <div>
+            <a href="/">Cancel</a>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

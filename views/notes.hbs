@@ -5,15 +5,18 @@
         <div>
             <div>
                 <button type="submit" name="sort" value="dueDate">
-                    By Due Date {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                    By Due Date
                 </button>
 
                 <button type="submit" name="sort" value="createdDate">
-                    By Creation Date {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                    By Creation Date
                 </button>
 
                 <button type="submit" name="sort" value="importance">
-                    By Importance {{#if isAscending}}(Descending){{else}}(Ascending){{/if}}
+                    By Importance
+                </button>
+                <button type="submit" name="switchAscDesc" value="true">
+                    {{#if isAscending}}Descending{{else}}Ascending{{/if}}
                 </button>
             </div>
         </div>
