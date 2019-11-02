@@ -5,3 +5,34 @@
     color: white;
     background-color: #000000c7;
 }
+
+.singleNoteContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.singleNoteContainer span {
+    content:"";
+    flex: 1 1 auto;
+    border-top: 1px solid #000;
+}
+
+.noteTitle {
+    float: left;
+}
+
+.noteEditButton {
+    float: right;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 40em) {
+    .buttons {
+        display: flex;
+        flex-direction: row;
+    }
+}
