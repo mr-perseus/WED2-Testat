@@ -25,6 +25,14 @@
     float: right;
 }
 
+.editNoteLabel {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;

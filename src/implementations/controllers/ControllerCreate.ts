@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { injectable } from 'inversify';
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import boolean from 'boolean';
 import { Controller } from '../../interfaces/Controller';
 
 @injectable()
@@ -9,7 +10,7 @@ export class ControllerCreate implements Controller {
         try {
             const viewData = {
                 title: 'Create Note',
-                style: req.session ? req.session.style : null,
+                isDarkTheme: req.session ? boolean(req.session.isDarkTheme) : false,
             };
 
             res.render('editNote.hbs', viewData);
